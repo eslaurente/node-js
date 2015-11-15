@@ -2,24 +2,23 @@ var EventEmitter = require('events');
 var util = require('util');
 
 function Greeter() {
-	this.greeting = 'Hello world!';
+	this.greeting = 'Hello, ';
 }
 
 
 util.inherits(Greeter, EventEmitter);
 
-Greeter.prototype.greet = function() {
-	console.log(this.greeting);
-	//this.emit('greet');
+Greeter.prototype.greet = function(arg) {
+	console.log(this.greeting + arg + '!');
+	this.emit('greet', arg);
 };
 
 var greeter1 = new Greeter();
-greeter1.on('greet', function() {
-    console.log('Someone greeted!');
+greeter1.on('greet', function(arg) {
+    console.log('Someone greeted: ' + arg);
 });
 
-greeter1.greet();
-greeter1.emit('greet');
+greeter1.greet('Emerald');
 
 // Below is demonstrating the inheritance
 console.log('Testing prototypal inheritance...');
